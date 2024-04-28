@@ -19,11 +19,15 @@ find_package(tf2_geometry_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 
-add_executable(talker src/main.cpp src/an_packet_protocol.c src/subsonus_packets.c)
-ament_target_dependencies(talker rclcpp std_msgs geometry_msgs tf2_ros tf2 visualization_msgs tf2_geometry_msgs)
+add_executable(surface_subsonus src/surface_main.cpp src/an_packet_protocol.c src/subsonus_packets.c)
+add_executable(subsea_subsonus src/subsea_main.cpp src/an_packet_protocol.c src/subsonus_packets.c)
+
+ament_target_dependencies(surface_subsonus rclcpp std_msgs geometry_msgs tf2_ros tf2 visualization_msgs tf2_geometry_msgs)
+ament_target_dependencies(subsea_subsonus rclcpp std_msgs geometry_msgs tf2_ros tf2 visualization_msgs tf2_geometry_msgs)
 
 install(TARGETS
-  talker
+  surface_subsonus
+  subsea_subsonus
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

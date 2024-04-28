@@ -152,7 +152,8 @@ public:
     message_sub.header.frame_id="surface";
 
     marker.header.frame_id="ROV";
-    marker.mesh_resource = "file:///home/neo/workspaceRos2/src/subsonus_pkg/meshes/submarine.obj";
+    //marker.mesh_resource = "/home/hassan/workspace/src/subsonus_pkg/meshes/submarine.obj";
+    marker.mesh_resource = "package://subsonus_pkg/meshes/submarine.obj";
     marker.mesh_use_embedded_materials = true;
     marker.ns = "";
 
@@ -171,8 +172,8 @@ public:
 
     unsigned int bytes_received = 0;
     char *hostname;
-    hostname = "192.168.2.100";
-    int port = 19000;
+    hostname = "192.168.10.249";
+    int port = 16718;
     // int port = 16718;
 
 
@@ -184,7 +185,7 @@ public:
     }
 
     // Find the address of the host
-    server = gethostbyname("192.168.2.100");
+    server = gethostbyname("192.168.10.249");
     if(server == NULL)
     {
       printf("Could not find host %s\n", hostname);
@@ -236,10 +237,10 @@ public:
     printf("Encode Network Settings Packet:\n");
     set_network_options();
 
-    publisher_rotation = this->create_publisher<std_msgs::msg::Float64MultiArray>("rotation_matrix", 1000);
-    publisher_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("pose", 1000);
-    publisher_sub = this->create_publisher<geometry_msgs::msg::PoseStamped>("pose_sub", 1000);
-    publisher_marker = this->create_publisher<visualization_msgs::msg::Marker>("marker", 1000);
+    publisher_rotation = this->create_publisher<std_msgs::msg::Float64MultiArray>("surface/rotation_matrix", 1000);
+    publisher_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("surface/pose", 1000);
+    publisher_sub = this->create_publisher<geometry_msgs::msg::PoseStamped>("surface/pose_tracked_subsea", 1000);
+    publisher_marker = this->create_publisher<visualization_msgs::msg::Marker>("surface/marker", 1000);
     timer_ = this->create_wall_timer(
       10ms, std::bind(&MinimalPublisher::timer_callback, this));
   }
